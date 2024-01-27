@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Style Editor</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin: 20px;
+        }
+
+        #preview {
+            width: 100px;
+            height: 100px;
+            background-color: #3498db;
+            margin: 10px;
+        }
+
+        input {
+            margin: 5px;
+        }
+
+        button {
+            margin-top: 10px;
+            padding: 5px;
+            cursor: pointer;
+        }
+
+        .editable {
+            /* Add styles for editable elements if needed */
+            border: 1px dashed #ddd;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div>
+        <label for="borderRadius">Border Radius:</label>
+        <input type="range" id="borderRadius" value="0" max="50">
+    </div>
+    <div>
+        <label for="fontSize">Font Size:</label>
+        <input type="range" id="fontSize" value="16" max="50">
+    </div>
+    <div>
+        <label for="width">Width:</label>
+        <input type="range" id="width" value="100" max="200">
+    </div>
+    <div>
+        <label for="height">Height:</label>
+        <input type="range" id="height" value="100" max="200">
+    </div>
+    <div>
+        <label for="bgColor">Background Color:</label>
+        <input type="color" id="bgColor" value="#3498db">
+    </div>
+    <div>
+        <label for="fontColor">Font Color:</label>
+        <input type="color" id="fontColor" value="#000000">
+    </div>
+    <div>
+        <label for="textAlign">Text Align:</label>
+        <select id="textAlign">
+            <option value="left">Left</option>
+            <option value="center">Center</option>
+            <option value="right">Right</option>
+        </select>
+    </div>
+    <div>
+        <label for="border">Border:</label>
+        <input type="text" id="border" placeholder="Enter border property">
+    </div>
+    <div>
+        <label for="marginTop">Margin Top:</label>
+        <input type="range" id="marginTop" value="0" max="50">
+    </div>
+    <div>
+        <label for="marginRight">Margin Right:</label>
+        <input type="range" id="marginRight" value="0" max="50">
+    </div>
+    <div>
+        <label for="marginBottom">Margin Bottom:</label>
+        <input type="range" id="marginBottom" value="0" max="50">
+    </div>
+    <div>
+        <label for="marginLeft">Margin Left:</label>
+        <input type="range" id="marginLeft" value="0" max="50">
+    </div>
+    <div>
+        <label for="paddingTop">Padding Top:</label>
+        <input type="range" id="paddingTop" value="0" max="50">
+    </div>
+    <div>
+        <label for="paddingRight">Padding Right:</label>
+        <input type="range" id="paddingRight" value="0" max="50">
+    </div>
+    <div>
+        <label for="paddingBottom">Padding Bottom:</label>
+        <input type="range" id="paddingBottom" value="0" max="50">
+    </div>
+    <div>
+        <label for="paddingLeft">Padding Left:</label>
+        <input type="range" id="paddingLeft" value="0" max="50">
+    </div>
+    <div id="preview" class="editable">yyyy</div>
+        <div id="preview" class="editable"></div>
+
+    <button id="copyButton">Copy CSS Code</button>
+
+    <script>
+    
+    
+    
+    
+    
+    
+    ///❌❌❌❌❌❌❌❌❌❌❌❌❌
+    
+    
+    
+        const borderRadiusInput = document.getElementById('borderRadius');
+        const fontSizeInput = document.getElementById('fontSize');
+        const widthInput = document.getElementById('width');
+        const heightInput = document.getElementById('height');
+        const bgColorInput = document.getElementById('bgColor');
+        const fontColorInput = document.getElementById('fontColor');
+        const textAlignInput = document.getElementById('textAlign');
+        const borderInput = document.getElementById('border');
+        const marginTopInput = document.getElementById('marginTop');
+        const marginRightInput = document.getElementById('marginRight');
+        const marginBottomInput = document.getElementById('marginBottom');
+        const marginLeftInput = document.getElementById('marginLeft');
+        const paddingTopInput = document.getElementById('paddingTop');
+        const paddingRightInput = document.getElementById('paddingRight');
+        const paddingBottomInput = document.getElementById('paddingBottom');
+        const paddingLeftInput = document.getElementById('paddingLeft');
+        const previewElement = document.getElementById('preview');
+        const copyButton = document.getElementById('copyButton');
+
+        const handleStyleChange = () => {
+            if (selectedElement) {
+                selectedElement.style.borderRadius = `${borderRadiusInput.value}px`;
+                selectedElement.style.fontSize = `${fontSizeInput.value}px`;
+                selectedElement.style.width = `${widthInput.value}px`;
+                selectedElement.style.height = `${heightInput.value}px`;
+                selectedElement.style.backgroundColor = bgColorInput.value;
+                selectedElement.style.color = fontColorInput.value;
+                selectedElement.style.textAlign = textAlignInput.value;
+                selectedElement.style.border = borderInput.value;
+                selectedElement.style.marginTop = `${marginTopInput.value}px`;
+                selectedElement.style.marginRight = `${marginRightInput.value}px`;
+                selectedElement.style.marginBottom = `${marginBottomInput.value}px`;
+                selectedElement.style.marginLeft = `${marginLeftInput.value}px`;
+                selectedElement.style.paddingTop = `${paddingTopInput.value}px`;
+                selectedElement.style.paddingRight = `${paddingRightInput.value}px`;
+                selectedElement.style.paddingBottom = `${paddingBottomInput.value}px`;
+                selectedElement.style.paddingLeft = `${paddingLeftInput.value}px`;
+            }
+        };
+
+        const copyCSSCode = () => {
+            if (selectedElement) {
+                const cssCode = `
+                    border-radius: ${borderRadiusInput.value}px;
+                    font-size: ${fontSizeInput.value}px;
+                    width: ${widthInput.value}px;
+                    height: ${heightInput.value}px;
+                    background-color: ${bgColorInput.value};
+                    color: ${fontColorInput.value};
+                    text-align: ${textAlignInput.value};
+                    border: ${borderInput.value};
+                    margin: ${marginTopInput.value}px ${marginRightInput.value}px ${marginBottomInput.value}px ${marginLeftInput.value}px;
+                    padding: ${paddingTopInput.value}px ${paddingRightInput.value}px ${paddingBottomInput.value}px ${paddingLeftInput.value}px;
+                `;
+
+                navigator.clipboard.writeText(cssCode).then(() => {
+                    alert('CSS code copied to clipboard!');
+                }).catch((error) => {
+                    console.error('Clipboard write error:', error);
+                });
+            }
+        };
+
+        let selectedElement;
+
+        document.addEventListener("click", function (e) {
+            // Check if the clicked element has the "editable" class
+            if (e.target.classList.contains("editable")) {
+                // Remove styles from the previously selected element
+                if (selectedElement) {
+                    selectedElement.style.border = "none";
+                }
+
+                selectedElement = e.target;
+
+                // Add styles to the currently selected element
+                borderRadiusInput.removeEventListener("input", handleStyleChange);
+                fontSizeInput.removeEventListener("input", handleStyleChange);
+                widthInput.removeEventListener("input", handleStyleChange);
+                heightInput.removeEventListener("input", handleStyleChange);
+                bgColorInput.removeEventListener("change", handleStyleChange);
+                fontColorInput.removeEventListener("change", handleStyleChange);
+                textAlignInput.removeEventListener("change", handleStyleChange);
+                borderInput.removeEventListener("input", handleStyleChange);
+                marginTopInput.removeEventListener("input", handleStyleChange);
+                marginRightInput.removeEventListener("input", handleStyleChange);
+                marginBottomInput.removeEventListener("input", handleStyleChange);
+                marginLeftInput.removeEventListener("input", handleStyleChange);
+                paddingTopInput.removeEventListener("input", handleStyleChange);
+                paddingRightInput.removeEventListener("input", handleStyleChange);
+                paddingBottomInput.removeEventListener("input", handleStyleChange);
+                paddingLeftInput.removeEventListener("input", handleStyleChange);
+
+                borderRadiusInput.addEventListener("input", handleStyleChange);
+                fontSizeInput.addEventListener("input", handleStyleChange);
+                widthInput.addEventListener("input", handleStyleChange);
+                heightInput.addEventListener("input", handleStyleChange);
+                bgColorInput.addEventListener("change", handleStyleChange);
+                fontColorInput.addEventListener("change", handleStyleChange);
+                textAlignInput.addEventListener("change", handleStyleChange);
+                borderInput.addEventListener("input", handleStyleChange);
+                marginTopInput.addEventListener("input", handleStyleChange);
+                marginRightInput.addEventListener("input", handleStyleChange);
+                marginBottomInput.addEventListener("input", handleStyleChange);
+                marginLeftInput.addEventListener("input", handleStyleChange);
+                paddingTopInput.addEventListener("input", handleStyleChange);
+                paddingRightInput.addEventListener("input", handleStyleChange);
+                paddingBottomInput.addEventListener("input", handleStyleChange);
+                paddingLeftInput.addEventListener("input", handleStyleChange);
+
+                // Update inputs based on the selected element's styles
+                borderRadiusInput.value = window.getComputedStyle(selectedElement).borderRadius.split('px')[0];
+                fontSizeInput.value = window.getComputedStyle(selectedElement).fontSize.split('px')[0];
+                widthInput.value = window.getComputedStyle(selectedElement).width.split('px')[0];
+                heightInput.value = window.getComputedStyle(selectedElement).height.split('px')[0];
+                bgColorInput.value = rgbToHex(window.getComputedStyle(selectedElement).backgroundColor);
+                fontColorInput.value = rgbToHex(window.getComputedStyle(selectedElement).color);
+                textAlignInput.value = window.getComputedStyle(selectedElement).textAlign;
+                borderInput.value = window.getComputedStyle(selectedElement).border;
+                marginTopInput.value = window.getComputedStyle(selectedElement).marginTop.split('px')[0];
+                marginRightInput.value = window.getComputedStyle(selectedElement).marginRight.split('px')[0];
+                marginBottomInput.value = window.getComputedStyle(selectedElement).marginBottom.split('px')[0];
+                marginLeftInput.value = window.getComputedStyle(selectedElement).marginLeft.split('px')[0];
+                paddingTopInput.value = window.getComputedStyle(selectedElement).paddingTop.split('px')[0];
+                paddingRightInput.value = window.getComputedStyle(selectedElement).paddingRight.split('px')[0];
+                paddingBottomInput.value = window.getComputedStyle(selectedElement).paddingBottom.split('px')[0];
+                paddingLeftInput.value = window.getComputedStyle(selectedElement).paddingLeft.split('px')[0];
+
+                // Highlight the currently selected element
+                selectedElement.style.border = "2px solid red";
+            }
+        });
+
+        copyButton.addEventListener("click", copyCSSCode);
+
+        // Function to convert RGB color to Hex
+        function rgbToHex(rgb) {
+            const hex = rgb.match(/^rgb\((\d+),\s*(\d+),\s*(\d+)\)$/);
+            return hex ? `#${(1 << 24 | hex[1] << 16 | hex[2] << 8 | hex[3]).toString(16).slice(1)}` : '';
+        }
+    </script>
+</body>
+</html>

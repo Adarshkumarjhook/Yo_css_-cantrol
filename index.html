@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Element Styler</title>
+</head>
+<body>
+    <div id="controls">
+        <label for="borderRadius">Border Radius:</label>
+        <input type="range" id="borderRadius" min="0" max="50">
+
+        <label for="fontSize">Font Size:</label>
+        <input type="range" id="fontSize" min="10" max="50">
+
+        <label for="width">Width:</label>
+        <input type="range" id="width" min="50" max="300">
+
+        <label for="height">Height:</label>
+        <input type="range" id="height" min="50" max="300">
+
+        <label for="bgColor">Background Color:</label>
+        <input type="color" id="bgColor">
+
+        <button id="copyButton">Copy CSS</button>
+    </div>
+
+    <div id="preview">Click an element to style</div>
+
+    <script src="main.js"></script>
+</body>
+</html>

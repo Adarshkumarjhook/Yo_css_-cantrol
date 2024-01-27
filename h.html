@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Style Editor</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin: 20px;
+        }
+
+        #preview {
+            width: 100px;
+            height: 100px;
+            background-color: #3498db;
+            margin: 10px;
+        }
+
+        input {
+            margin: 5px;
+        }
+
+        button {
+            margin-top: 10px;
+            padding: 5px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div>
+        <label for="borderRadius">Border Radius:</label>
+        <input type="range" id="borderRadius" value="0" max="50">
+    </div>
+    <div>
+        <label for="fontSize">Font Size:</label>
+        <input type="range" id="fontSize" value="16" max="50">
+    </div>
+    <div>
+        <label for="width">Width:</label>
+        <input type="range" id="width" value="100" max="200">
+    </div>
+    <div>
+        <label for="height">Height:</label>
+        <input type="range" id="height" value="100" max="200">
+    </div>
+    <div>
+        <label for="bgColor">Background Color:</label>
+        <input type="color" id="bgColor" value="#3498db">
+    </div>
+    <div id="preview"></div>
+    <button id="copyButton">Copy CSS Code</button>
+
+    <script>
+        const borderRadiusInput = document.getElementById('borderRadius');
+        const fontSizeInput = document.getElementById('fontSize');
+        const widthInput = document.getElementById('width');
+        const heightInput = document.getElementById('height');
+        const bgColorInput = document.getElementById('bgColor');
+        const previewElement = document.getElementById('preview');
+        const copyButton = document.getElementById('copyButton');
+
+        const handleStyleChange = () => {
+            if (selectedElement) {
+                selectedElement.style.borderRadius = `${borderRadiusInput.value}px`;
+                selectedElement.style.fontSize = `${fontSizeInput.value}px`;
+                selectedElement.style.width = `${widthInput.value}px`;
+                selectedElement.style.height = `${heightInput.value}px`;
+                selectedElement.style.backgroundColor = bgColorInput.value;
+            }
+        };
+
+        const copyCSSCode = () => {
+            if (selectedElement) {
+                const cssCode = `
+                    border-radius: ${borderRadiusInput.value}px;
+                    font-size: ${fontSizeInput.value}px;
+                    width: ${widthInput.value}px;
+                    height: ${heightInput.value}px;
+                    background-color: ${bgColorInput.value};
+                `;
+
+                navigator.clipboard.writeText(cssCode).then(() => {
+                    alert('CSS code copied to clipboard!');
+                }).catch((error) => {
+                    console.error('Clipboard write error:', error);
+                });
+            }
+        };
+
+        let selectedElement;
+
+        document.addEventListener("click", function (e) {
+            // Remove styles from the previously selected element
+            if (selectedElement) {
+                selectedElement.style.border = "none";
+            }
+
+            selectedElement = e.target;
+
+            // Add styles to the currently selected element
+            borderRadiusInput.removeEventListener("input", handleStyleChange);
+            fontSizeInput.removeEventListener("input", handleStyleChange);
+            widthInput.removeEventListener("input", handleStyleChange);
+            heightInput.removeEventListener("input", handleStyleChange);
+            bgColorInput.removeEventListener("input", handleStyleChange);
+
+            borderRadiusInput.addEventListener("input", handleStyleChange);
+            fontSizeInput.addEventListener("input", handleStyleChange);
+            widthInput.addEventListener("input", handleStyleChange);
+            heightInput.addEventListener("input", handleStyleChange);
+            bgColorInput.addEventListener("input", handleStyleChange);
+
+            // Update inputs based on the selected element's styles
+            borderRadiusInput.value = window.getComputedStyle(selectedElement).borderRadius.split('px')[0];
+            fontSizeInput.value = window.getComputedStyle(selectedElement).fontSize.split('px')[0];
+            widthInput.value = window.getComputedStyle(selectedElement).width.split('px')[0];
+            heightInput.value = window.getComputedStyle(selectedElement).height.split('px')[0];
+            bgColorInput.value = rgbToHex(window.getComputedStyle(selectedElement).backgroundColor);
+
+            // Highlight the currently selected element
+            selectedElement.style.border = "2px solid red";
+        });
+
+        copyButton.addEventListener("click", copyCSSCode);
+
+        // Function to convert RGB color to Hex
+        function rgbToHex(rgb) {
+            const hex = rgb.match(/^rgb\((\d+),\s*(\d+),\s*(\d+)\)$/);
+            return hex ? `#${(1 << 24 | hex[1] << 16 | hex[2] << 8 | hex[3]).toString(16).slice(1)}` : '';
+        }
+    </script>
+</body>
+</html>
